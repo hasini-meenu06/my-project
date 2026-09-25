@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - ComicCraft</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="nav">
+    <div class="brand"><span class="logo">CC</span><span>ComicCraft</span></div>
+    <a class="back" href="/">← Create another</a>
+</header>
+
+<main class="container preview">
+    <section class="hero compact">
+        <p class="eyebrow">COMIC PREVIEW</p>
+        <h1>{{ title }}</h1>
+        <p class="sub">Your five-panel AI-generated comic is ready.</p>
+    </section>
+
+    {% if pdf_error %}
+    <div class="error">{{ pdf_error }}</div>
+    {% endif %}
+    <div class="download-row">
+        {% if pdf_path %}
+        <a class="btn" href="{{ pdf_path }}" download onclick="showSuccess()">Download Your Comic as PDF</a>
+        {% else %}
+        <a class="btn" href="/">Create Comic Again</a>
+        {% endif %}
+    </div>
+
+    <section class="comic-list">
+        {% for panel in layout %}
+        <article class="comic-panel">
+            <div class="panel-head">
+                <span>Panel {{ panel.panel_number }}</span>
+                <h2>{{ panel.title }}</h2>
+            </div>
+            <img src="{{ panel.image_path }}" alt="Panel {{ panel.panel_number }} illustration">
+            <div class="panel-text">
+                <p class="scene"><i>{{ panel.scene_description }}</i></p>
+                {% if panel.caption %}<p><b>Caption:</b> {{ panel.caption }}</p>{% endif %}
+                {% if panel.narration %}<p><b>Narration:</b> {{ panel.narration }}</p>{% endif %}
+                {% if panel.dialogue %}<div class="speech">“{{ panel.dialogue }}”</div>{% endif %}
+                <details>
+                    <summary>Image Prompt Reference</summary>
+                    <p>{{ panel.image_prompt }}</p>
+                </details>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+</main>
+
+<script>
+function showSuccess(){
+    setTimeout(() => {
+        window.location.href = "/export-success?pdf={{ pdf_path | urlencode }}";
+    }, 1200);
+}
+</script>
+</body>
+</html>

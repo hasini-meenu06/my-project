@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicCraft - AI Comic Story Creator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="home-bg">
+<header class="nav">
+    <div class="brand"><span class="logo">CC</span><span>ComicCraft</span></div>
+    <span class="tag">AI Comic Story Creator</span>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <p class="eyebrow">GEMINI + STABLE DIFFUSION</p>
+        <h1>Turn your imagination<br><span>into a comic.</span></h1>
+        <p class="sub">Create a personalized five-panel comic story with AI-generated narration, dialogue and illustrations.</p>
+    </section>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <section class="card form-card">
+        <form action="/generate" method="post">
+            <label>Story Prompt</label>
+            <textarea name="story_prompt" rows="5" required placeholder="A brave fox exploring an enchanted forest...">A brave fox exploring an enchanted forest.</textarea>
+
+            <div class="two">
+                <div>
+                    <label>Character Name</label>
+                    <input name="character_name" value="Luna" required>
+                </div>
+                <div>
+                    <label>Setting</label>
+                    <input name="setting" value="enchanted forest" required>
+                </div>
+            </div>
+
+            <div class="two">
+                <div>
+                    <label>Story Tone</label>
+                    <select name="tone">
+                        <option>dramatic</option>
+                        <option>funny</option>
+                        <option>adventurous</option>
+                        <option>mysterious</option>
+                        <option>heartwarming</option>
+                        <option>poetic</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Art Style</label>
+                    <select name="art_style">
+                        <option>comic book</option>
+                        <option>anime</option>
+                        <option>manga</option>
+                        <option>pixel art</option>
+                        <option>realistic</option>
+                        <option>watercolor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fixed-panels">5 PANELS • AUTOMATIC STORY FLOW</div>
+            <button type="submit" class="btn">✨ Generate My Comic</button>
+        </form>
+    </section>
+
+    <section class="features">
+        <div><b>01</b><span>Gemini Flash</span><small>Creates the 5-panel outline.</small></div>
+        <div><b>02</b><span>Gemini Pro</span><small>Writes narration and dialogue.</small></div>
+        <div><b>03</b><span>Stable Diffusion</span><small>Creates comic illustrations.</small></div>
+        <div><b>04</b><span>PDF Export</span><small>Download and share your comic.</small></div>
+    </section>
+</main>
+</body>
+</html>
